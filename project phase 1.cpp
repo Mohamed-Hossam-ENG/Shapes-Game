@@ -188,3 +188,4 @@ void DrawFish(window& s, color x, int scale, int height, int tail_width, int fis
 	s.DrawTriangle((tail_width + startingX + fish_width / 2), (startingY + height / 2) + height / 2, (tail_width + startingX + fish_width / 2), (startingY + height / 2) - height / 2, tail_width + startingX + fish_width, startingY + height / 2, FILLED);
 
 }
+// edit
