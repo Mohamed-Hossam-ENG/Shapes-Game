@@ -10,7 +10,23 @@ shape::shape(game* r_pGame, point ref)
 	borderColor = config.penColor;
 }
 
-void shape::setRefPoint(point p)
+
+
+ void shape::move( int deltaX, int deltaY)
 {
-	RefPoint = p;
+	RefPoint.x += deltaX;
+	RefPoint.y += deltaY;
 }
+
+
+
+point shape:: getRefPoint() const {
+	return RefPoint;
+}
+
+// Setter for the reference point
+void shape:: setRefPoint(const point& newPoint) {
+	RefPoint = newPoint;
+}
+
+

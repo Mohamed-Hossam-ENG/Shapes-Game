@@ -25,24 +25,19 @@ public:
 	operAddSign(game* r_pGame);
 	virtual void Act();
 };
-
-class operAddHouse:public operation {
-
+class operAddHammer : public operation
+{
 public :
-	operAddHouse(game* r_PGame);
+	operAddHammer(game* r_pGame);
 	virtual void Act();
 };
-class operAddTree :public operation {
-
+class operAddFanoos : public operation
+{
 public:
-	operAddTree(game* r_PGame);
+	operAddFanoos(game* r_pGame);
 	virtual void Act();
 };
-
-
-
-
-class operAddTriangle :public operation {
+class operAddTriangle : public operation {
 
 public:
 	operAddTriangle(game* r_pGame);
@@ -66,8 +61,23 @@ public:
 
 
 };
+class operAddHouse :public operation {
+
+public:
+	operAddHouse(game* r_PGame);
+	virtual void Act();
+};
+class operAddTree :public operation {
+
+public:
+	operAddTree(game* r_PGame);
+	virtual void Act();
+};
 class operAddCar :public operation {
 public:
 	operAddCar(game* r_pGame);
 	virtual void Act();
 };
+
+
+

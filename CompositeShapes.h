@@ -31,7 +31,24 @@ public:
 
 
 };
-class House:public shape {
+class Hammer : public shape
+{
+	Rect* right;
+	Rect* left;
+public:
+	Hammer(game* r_pGame, point ref);
+	virtual void draw() const;
+};
+class fanoos : public shape
+{
+	Triangle* top;
+	fTriangle* mid;
+	Triangle* bottom;
+public : 
+	fanoos(game* r_pGame, point ref);
+	virtual void draw() const;
+};
+class House :public shape {
 
 
 	Rect* down;
@@ -50,7 +67,7 @@ class Tree :public shape {
 public:
 	Tree(game* r_pGame, point ref);
 	virtual void draw() const;
-
+	void move(int deltaX, int deltaY) override;
 };
 class Car :public shape {
 
@@ -59,10 +76,10 @@ class Car :public shape {
 	circle* cir2;
 public:
 	Car(game* r_pGame, point ref);
+
 	virtual void draw() const;
+	void move(int deltaX, int deltaY) override;
 
 
 
 };
-
-
