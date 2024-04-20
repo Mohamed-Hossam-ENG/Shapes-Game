@@ -13,13 +13,18 @@
 */
 
 
-class Rect:public shape
+class Rect : public shape
 {
 	int hght, wdth;	//height and width of the recangle
 public:
+	void setHeight(int newHeight);
+	void setWidth(int newWidth);
+	int getHeight() const;
+	int getWidth() const;
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
-	virtual void draw() const;
-
+	
+	void move(int deltaX, int deltaY) override;
+	 void draw() const override;
 
 };
 
@@ -31,8 +36,11 @@ class circle :public shape
 	//Add data memebrs for class circle
 	int rad;
 public:	
+	int getRad() const;
+	void setRad(int newRad);
 	circle(game* r_pGame, point ref, int r);	//add more parameters for the constructor if needed
 	virtual void draw() const;
+	void move(int deltaX, int deltaY) override;
 };
 class Triangle :public shape
 {
@@ -42,7 +50,24 @@ class Triangle :public shape
 	double side;
 public:
 	//Triangle(game* r_pGame,int fx,int fy,int sx,int sy,int tx,int ty,double sidet);
-	Triangle(game* r_pGame, point ref, int fx1, int fy1, int sx2, int sy2, int tx3, int ty3, double side);
+	double getSide() const;
+	void setSide(double newSide);
+	Triangle(game* r_pGame, point ref, double side);
 	virtual void draw() const;
+	void move(int deltaX, int deltaY) override;
 
+};
+class fTriangle : public shape
+{
+	int fx, fy;
+	int sx, sy;
+	int tx, ty;
+	double side;
+public:
+	//Triangle(game* r_pGame,int fx,int fy,int sx,int sy,int tx,int ty,double sidet);
+	double getSidee() const;
+	void setSidee(double newSide);
+	fTriangle(game* r_pGame, point ref, double side);
+	virtual void draw() const;
+	void move(int deltaX, int deltaY) override;
 };

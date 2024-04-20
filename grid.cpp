@@ -1,6 +1,7 @@
 #include "grid.h"
 #include "game.h"
 #include "gameConfig.h"
+#include"shape.h"
 
 
 grid::grid(point r_uprleft, int wdth, int hght, game* pG)
@@ -26,7 +27,7 @@ grid::~grid()
 		delete shapeList[i];
 }
 
-void grid::draw() const
+/*void grid::draw() const
 {
 	clearGridArea();
 	window* pWind = pGame->getWind();
@@ -38,17 +39,19 @@ void grid::draw() const
 	for (int r = 1; r < rows; r++)
 		for (int c = 0; c < cols; c++)
 			pWind->DrawCircle(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y, 1);
-			//pWind->DrawPixel(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y);
+			//pWind->DrawPixel(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y);*/
 
 	//Draw ALL shapes
-	for (int i = 0; i < shapeCount; i++)
-			if (shapeList[i])
-				shapeList[i]->draw();	//draw each shape
+/*for (int i = 0; i < shapeCount; i++) {
+	if (shapeList[i])
+		shapeList[i]->draw();
+}//draw each shape
 
 	//Draw the active shape
 	if(activeShape)
-		activeShape->draw();
-}
+		activeShape->draw();*/
+
+
 
 void grid::clearGridArea() const
 {
@@ -76,4 +79,46 @@ void grid::setActiveShape(shape* actShape)
 	activeShape = actShape;
 }
 
+shape* grid::getActiveShape() const
+{
+	return activeShape;
+}
 
+
+
+	/*void grid::moveActiveShape(int dx, int dy) {
+		if (!activeShape) return; // No active shape to move
+
+		point newPos = { activeShape->getRefPoint().x + dx, activeShape->getRefPoint().y +dy };
+
+		// Ensure new position is within grid bounds
+		if (newPos.x >= 0 && newPos.y >= 0 && newPos.x <= width && newPos.y <= height) {
+			activeShape->setRefPoint(newPos);
+		}
+	}*/
+	void grid::draw() const {
+		clearGridArea(); // Clear the grid area first
+		window* pWind = pGame->getWind();
+
+		pWind->SetPen(config.gridDotsColor, 1);
+		pWind->SetBrush(config.gridDotsColor);
+
+		// Draw dots showing the grid reference points
+		for (int r = 1; r < rows; r++) {
+			for (int c = 0; c < cols; c++) {
+				pWind->DrawCircle(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y, 1);
+			}
+		}
+
+		// Draw ALL shapes
+		for (int i = 0; i < shapeCount; i++) {
+			if (shapeList[i] != nullptr) {
+				shapeList[i]->draw(); // Draw each shape
+			}
+		}
+
+		// Draw the active shape, possibly in a different style
+		if (activeShape) {
+			activeShape->draw();
+		}
+	}
