@@ -78,7 +78,7 @@ public:
 	Car(game* r_pGame, point ref);
 
 	virtual void draw() const;
-	void move(int deltaX, int deltaY) override;
+	void move(int X, int Y) override;
 
 
 

@@ -7,7 +7,8 @@
 __declspec(selectany) //This line to prevent "redefinition error"
 struct 		
 {
-	int	windWidth=1200, windHeight=600,	//Window width and height
+	
+	int	windWidth=1350, windHeight=600,	//Window width and height
 		wx=5, wy=5,			//Window starting coordinates
 
 		//The window is divded into 3 areas: toolbar, Working area, and statusbar
@@ -20,7 +21,7 @@ struct
 	int gridHeight = int(remainingHeight * (2 / 3.0)); 		//The grid is where bricks can be drawn
 
 	//Default colors
-	color	penColor = BLUE,			//color used to draw borders/write messages
+	color	penColor = RED,			//color used to draw borders/write messages
 			fillColor = RED,			//shapes fill color (Default)
 			bkGrndColor= LAVENDER,		//Screen Background color
 			statusBarColor = LIGHTSEAGREEN;	//background color of the status
@@ -41,7 +42,36 @@ struct
 		int baseWdth = 20, baseHeight = 80;
 		int topWdth = 100, topHeight = 50;
 	}sighShape;
+	
+	struct {
+		int rightWidth = 50, rightheight = 90;
+		int leftwidth = 110, leftheight = 30;
+	}hammershape;
 
+	struct {
+		int topside = 80;
+		int midside = 60;
+		int bottomside = 40;
+
+	}fanoosShape;
+	struct {
+		int topTriangleSide = 100;
+		int rectLength = 100;
+		int rectWidth = 100;
+	}HouseShape;
+	struct {
+		int rectangleHeight = 130;
+		int rectangleWidth = 40;
+		int topTriangleSide = 100;
+		int bottomTriangleSide = 100;
+	}TreeShape;
+	struct {
+		int rectangleheight = 50;
+		int rectanglewidth = 180;
+		int circleRightRadius = 20;
+		int circleLeftRadius = 20;
+
+	}CarShape;
 }config;
 
 
@@ -49,18 +79,30 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 {
 	//Note: Items are ordered here as they appear in the toolbar
 	//If you want to change the toolbar items order, just change the order here
-	ITM_SIGN,		//Sign shape item
+		//Sign shape item
 
-	ITM_EXIT,		//Exit item
-	
+	//Exit item
 	ITM_Triangle,
 	ITM_circle,
 	ITM_Rectangle,
+	ITM_SIGN,
+	ITM_Hammer,
+	ITM_Fanoos,
 	ITM_House,
 	ITM_Car,
 	ITM_Tree,
-	//TODO: Add more items names here
+	ITM_Increase,
+	ITM_Decrease,
+	ITM_Rotate,
+	ITM_Refresh,
+	ITM_Hint,
+	ITM_Delete,
+	ITM_Select_GAME_LEVEl,
+	ITM_Save_and_Load,
 
+
+	//TODO: Add more items names here
+	ITM_EXIT,
 	ITM_CNT		//no. of toolbar items ==> This should be the last line in this enum
 
 };

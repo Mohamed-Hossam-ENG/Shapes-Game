@@ -87,6 +87,7 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("You Clicked on Select Game level");
 			break;
 	case ITM_Decrease:
+		op = new operDecResize(this);
 		printMessage("You Decreased the Size");
 		break;
 	case ITM_Delete:
@@ -96,6 +97,7 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("You Used A hint");
 		break;
 	case ITM_Increase:
+		op = new operIncResize(this);
 		printMessage("You Increased this items size");
 		break;
 	case ITM_Rotate:
@@ -185,45 +187,29 @@ grid* game::getGrid() const
 
 
 ////////////////////////////////////////////////////////////////////////
-/*void game::handleKeyPress(char Key) {
+
+void game::handleKeyPress(char K) {
 	if (!shapesGrid || !shapesGrid->getActiveShape()) return;
 
-	const int moveStep = config.gridSpacing; // How much the shape should move
-	shape* activeShape = shapesGrid->getActiveShape(); // Get the current active shape
-
-	// Move the shape based on the key pressed
-	switch (Key) {
-	case 'w': activeShape->move(0, 30); break;
-	case 's': activeShape->move(0,30); break;
-	case 'a': activeShape->move(30, 0); break;
-	case 'd': activeShape->move(40, 0); break;
-	}
-
-	shapesGrid->draw(); // Redraw the grid to update the position
-}*/
-void game::handleKeyPress(char Key) {
-	if (!shapesGrid || !shapesGrid->getActiveShape()) return;
-
-	const int moveStep = 50; // Movement step defined by configuration
-	shape* activeShape = shapesGrid->getActiveShape(); // Get the current active shape
-
-	// Move the shape based on the key pressed
-	switch (Key) {
-	case 'w': // Move up
-		activeShape->move(0, -moveStep);
+	 int Step = 50; 
+	shape* activeShape = shapesGrid->getActiveShape(); 
+	
+	switch (K) {
+	case 'g': //up
+		activeShape->move(0, -Step);
 		break;
-	case 's': // Move down
-		activeShape->move(0,moveStep);
+	case 'v'://down 
+		activeShape->move(0,Step);
 		break;
-	case 'a': // Move left
-		activeShape->move(-moveStep, 0);
+	case 'b': //right 
+		activeShape->move(-Step, 0);
 		break;
-	case 'd': // Move right
-		activeShape->move(moveStep, 0);
+	case 'n'://left 
+		activeShape->move(Step, 0);
 		break;
 	}
 
-	shapesGrid->draw(); // Redraw the grid to update the position
+	shapesGrid->draw(); 
 }
 
 	
@@ -232,23 +218,23 @@ void game::run()
 	int x, y;
 	toolbarItem clickedItem = ITM_CNT;
 
-	// Change the title
+	
 	pWind->ChangeTitle("- - - SHAPE HUNT (CIE 101 / CIE202 - project) - - -");
 
-	char Key; // Variable to store the key pressed
+	char K;
 	do {
-		// Use event-driven or polling method to detect key press
-		while (pWind->GetKeyPress(Key)) { // Continuously check if a key is pressed
-			handleKeyPress(Key); // Call handleKeyPress with the pressed key
+		
+		while (pWind->GetKeyPress(K)) { 
+			handleKeyPress(K); 
 		}
 
-		// Handle mouse click events
-		if (pWind->WaitMouseClick(x, y)) { // Get the coordinates of the user click
+		
+		if (pWind->WaitMouseClick(x, y)) { 
 			if (y >= 0 && y <600) {
 				clickedItem = gameToolbar->getItemClicked(x);
 				operation* op = createRequiredOperation(clickedItem);
 				if (op) op->Act();
-				shapesGrid->draw(); // Redraw the grid after each action
+				shapesGrid->draw(); 
 			}
 		}
 	} while (clickedItem != ITM_EXIT);

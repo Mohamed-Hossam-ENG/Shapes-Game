@@ -24,7 +24,8 @@ public:
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
 	
 	void move(int deltaX, int deltaY) override;
-	 void draw() const override;
+	void resize(double n) override;
+	void draw() const override;
 
 };
 
@@ -39,8 +40,9 @@ public:
 	int getRad() const;
 	void setRad(int newRad);
 	circle(game* r_pGame, point ref, int r);	//add more parameters for the constructor if needed
+	void resize(double n) override;
 	virtual void draw() const;
-	void move(int deltaX, int deltaY) override;
+	void move(int X, int Y) override;
 };
 class Triangle :public shape
 {
@@ -53,8 +55,9 @@ public:
 	double getSide() const;
 	void setSide(double newSide);
 	Triangle(game* r_pGame, point ref, double side);
+	void resize(double n) override;
 	virtual void draw() const;
-	void move(int deltaX, int deltaY) override;
+	void move(int X, int Y) override;
 
 };
 class fTriangle : public shape
@@ -68,6 +71,7 @@ public:
 	double getSidee() const;
 	void setSidee(double newSide);
 	fTriangle(game* r_pGame, point ref, double side);
+	void resize(double n) override;
 	virtual void draw() const;
-	void move(int deltaX, int deltaY) override;
+	void move(int X, int Y) override;
 };

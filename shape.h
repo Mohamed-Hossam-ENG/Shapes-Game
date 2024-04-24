@@ -31,15 +31,17 @@ protected:
     game* pGame;        //pointer to game object
 	color fillColor;	//shape fill color
 	color borderColor;	//shape border color
+	double static scale;
 public:
     shape(game* r_pGame, point ref);
+	
     virtual void draw() const=0;
 
-	
+	virtual void resize(double n);
 	//for a shape to draw itself on the screen
 	//void setRefPoint(point p);
 	
-	virtual void move(int deltaX, int deltaY);
+	virtual void move(int smallX, int smallY);
 	
 	void setRefPoint(const point& newPoint);
 	point getRefPoint() const;

@@ -37,6 +37,29 @@ operAddCar::operAddCar(game* r_pGame) :operation(r_pGame)
 operAddTree::operAddTree(game* r_pGame) :operation(r_pGame) 
 {
 }
+operIncResize::operIncResize(game* r_pGame) :operation(r_pGame)
+{
+}
+operDecResize::operDecResize(game* r_pGame) :operation(r_pGame)
+{
+}
+
+void operDecResize::Act()
+{
+	
+	grid * pGrid = pGame->getGrid();
+	shape* psh = pGrid->getActiveShape();
+	psh->resize(-0.1);
+	
+}
+
+void operIncResize::Act()
+{
+	grid* pGrid = pGame->getGrid();
+	shape* psh = pGrid->getActiveShape();
+	psh->resize(0.1);
+
+}
 
 
 
@@ -241,3 +264,5 @@ void operAddCar::Act()
 	pGrid->setActiveShape(psh);
 
 }
+
+

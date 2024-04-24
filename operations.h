@@ -78,6 +78,16 @@ public:
 	operAddCar(game* r_pGame);
 	virtual void Act();
 };
+class operIncResize :public operation {
+public:
+	operIncResize(game* r_pGame);
+	virtual void Act();
+};
 
+class operDecResize :public operation {
+public:
+	operDecResize(game* r_pGame);
+	virtual void Act();
+};
 
 

@@ -11,13 +11,16 @@ shape::shape(game* r_pGame, point ref)
 }
 
 
-
- void shape::move( int deltaX, int deltaY)
+void shape::resize(double n)
 {
-	RefPoint.x += deltaX;
-	RefPoint.y += deltaY;
+
 }
 
+ void shape::move( int smallX, int smallY)
+{
+	RefPoint.x += smallX;
+	RefPoint.y += smallY;
+}
 
 
 point shape:: getRefPoint() const {

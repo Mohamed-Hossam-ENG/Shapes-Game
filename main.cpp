@@ -1,6 +1,6 @@
 #include "game.h"
 
-
+double shape::scale = 1;
 int main()
 {
 

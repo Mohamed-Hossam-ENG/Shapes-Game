@@ -35,10 +35,16 @@ Rect::Rect(game* r_pGame, point ref, int r_hght, int r_wdth):shape(r_pGame,ref)
 	wdth = r_wdth;
 }
 
-void Rect::move(int deltaX, int deltaY)
+void Rect::move(int X, int Y)
 {
-	this->RefPoint.x += deltaX;
-	this->RefPoint.y += deltaY;
+	this->RefPoint.x += X;
+	this->RefPoint.y += Y;
+}
+void Rect::resize(double n)
+{
+	//scale += n;
+	hght = hght * (n + 1);
+	wdth = wdth * (n + 1);
 }
 
 void Rect::draw() const
@@ -72,7 +78,13 @@ circle::circle(game* r_pGame, point ref, int r) :shape(r_pGame, ref) {
 }
 
 
+void circle::resize(double n)
+{
+	//scale += n;
+	rad = rad * (1+n);
 	
+}
+
 
 void circle::draw() const
 {
@@ -83,10 +95,10 @@ void circle::draw() const
 
 }
 
-void circle::move(int deltaX, int deltaY)
+void circle::move(int X, int Y)
 {
-	this->RefPoint.x += deltaX;
-	this->RefPoint.y += deltaY;
+	this->RefPoint.x += X;
+	this->RefPoint.y += Y;
 }
 
 
@@ -116,7 +128,14 @@ Triangle::Triangle(game* r_pGame, point ref, double side) :shape(r_pGame, ref )
 	 tx = RefPoint.x + side / 2;
 	 ty = RefPoint.y + (high / 3);
 	this->side = side;
-}//	 fy = RefPoint.y - (2 * high / 3);
+}//	 
+
+void Triangle::resize(double n)
+{
+	//scale += n;
+	side = side * (n+1);
+}
+
 
 void Triangle::draw() const
 {
@@ -125,10 +144,10 @@ void Triangle::draw() const
 	pW->DrawTriangle(fx, fy, sx, sy, tx, ty, FILLED);
 }
 
-void Triangle::move(int deltaX, int deltaY)
+void Triangle::move(int X, int Y)
 {
-	this->RefPoint.x += deltaX;
-	this->RefPoint.y += deltaY;
+	this->RefPoint.x += X;
+	this->RefPoint.y +=Y;
 }
 
 double fTriangle::getSidee() const
@@ -153,6 +172,12 @@ fTriangle::fTriangle(game* r_pGame, point ref, double side): shape(r_pGame,ref)
 	this->side = side;
 }
 
+void fTriangle::resize(double n)
+{
+	//scale += n;
+	side = side * (n + 1);
+}
+
 void fTriangle::draw() const
 {
 	window* pW = pGame->getWind();
@@ -161,8 +186,8 @@ void fTriangle::draw() const
 
 }
 
-void fTriangle::move(int deltaX, int deltaY)
+void fTriangle::move(int X, int Y)
 {
-	this->RefPoint.x += deltaX;
-	this->RefPoint.y += deltaY;
+	this->RefPoint.x += X;
+	this->RefPoint.y += Y;
 }
