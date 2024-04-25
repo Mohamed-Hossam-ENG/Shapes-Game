@@ -3,6 +3,7 @@
 #include <cmath>
 
 ////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
+
 Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
 {
 	//calc the ref point of the Sign base and top rectangles relative to the Sign shape
@@ -12,24 +13,43 @@ Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
 	base = new Rect(pGame, baseRef, config.sighShape.baseHeight, config.sighShape.baseWdth);
 }
 
+void Sign::resize(double n, point ref)
+{
+	//config.sighShape.topHeight = config.sighShape.topHeight * (n + 1);
+	//config.sighShape.baseHeight = config.sighShape.baseHeight * (n + 1);
+	//config.sighShape.topWdth = config.sighShape.topWdth * (n + 1);
+	//config.sighShape.baseWdth = config.sighShape.baseWdth * (n + 1);
+	top->resize(n, { 0,0 });
+	base->resize(n, { 0,0 });
+	
+	top->setRefPoint(ref);	//top rect ref is the same as the sign
+
+	base->setRefPoint({ ref.x, ref.y + top->getHeight() / 2 + base->getHeight() / 2 });
+
+
+}
+
+
 void Sign::draw() const
 {
 	base->draw();
 	top->draw();
 }
 
-Hammer::Hammer(game* r_pGame, point ref) : shape(r_pGame, ref)
+iceCream::iceCream(game* r_pGame, point ref) : shape(r_pGame, ref)
 {
-	point rightref = ref;
-	point leftref = { ref.x - config.hammershape.rightWidth / 2 - config.hammershape.leftwidth / 2,ref.y };
-	right = new Rect(pGame, rightref, config.hammershape.rightheight, config.hammershape.rightWidth);
-	left = new Rect(pGame, leftref, config.hammershape.leftheight, config.hammershape.leftwidth);
+	point topRef = ref;
+	point triRef = { ref.x , ref.y + 45 };
+
+	circ = new circle(pGame, topRef, config.IceCream.circleRadius);
+	triang = new fTriangle(pGame, triRef, config.IceCream.triangleSide + 60);
+
 }
 
-void Hammer::draw() const
+void iceCream::draw() const
 {
-	right->draw();
-	left->draw();
+	circ->draw();
+	triang->draw();
 }
 
 fanoos::fanoos(game* r_pGame, point ref) : shape(r_pGame,ref)
@@ -99,7 +119,7 @@ void Car::draw() const
 
 
 }
-void Car::move(int deltaX, int deltaY)
+void Car::move(double deltaX, double deltaY)
 {
 	rect->move(deltaX, deltaY);   // Assuming rect is a pointer to Rect
 	cir1->move(deltaX, deltaY);   // Assuming cir1 is a pointer to Circle
@@ -113,7 +133,9 @@ void Tree::draw()const {
 
 }
 
-void Tree::move(int deltaX, int deltaY)
+
+
+void Tree::move(double deltaX, double deltaY)
 {
 	t1->move( deltaX, deltaY);
 	t2->move(deltaX, deltaY);

@@ -27,18 +27,19 @@ class Sign :public shape
 	Rect* top;
 public:
 	Sign(game* r_pGame, point ref);
+	void resize(double n, point ref)override;
 	virtual void draw() const;
 
 
 };
-class Hammer : public shape
-{
-	Rect* right;
-	Rect* left;
+class iceCream : public shape {
+	circle* circ;
+	fTriangle* triang;
 public:
-	Hammer(game* r_pGame, point ref);
-	virtual void draw() const;
+	iceCream(game* r_pGame, point ref);
+	virtual void draw()const;
 };
+
 class fanoos : public shape
 {
 	Triangle* top;
@@ -67,7 +68,7 @@ class Tree :public shape {
 public:
 	Tree(game* r_pGame, point ref);
 	virtual void draw() const;
-	void move(int deltaX, int deltaY) override;
+	void move(double deltaX, double deltaY) override;
 };
 class Car :public shape {
 
@@ -78,7 +79,7 @@ public:
 	Car(game* r_pGame, point ref);
 
 	virtual void draw() const;
-	void move(int X, int Y) override;
+	void move(double X, double Y) override;
 
 
 

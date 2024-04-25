@@ -25,12 +25,13 @@ public:
 	operAddSign(game* r_pGame);
 	virtual void Act();
 };
-class operAddHammer : public operation
+class operAddIceCream : public operation
 {
-public :
-	operAddHammer(game* r_pGame);
+public:
+	operAddIceCream(game* r_pGame);
 	virtual void Act();
 };
+
 class operAddFanoos : public operation
 {
 public:

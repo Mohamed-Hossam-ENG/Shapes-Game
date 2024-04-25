@@ -60,7 +60,30 @@ shape* grid::getActiveShape() const
 	return activeShape;
 }
 
-
+//void grid::drawAllButActiveShape() const
+//{
+//	clearGridArea();
+//	window* pWind = pGame->getWind();
+//
+//	pWind->SetPen(config.gridDotsColor, 1);
+//	pWind->SetBrush(config.gridDotsColor);
+//
+//	//draw dots showing the grid reference points
+//	for (int r = 1; r < rows; r++)
+//	{
+//		for (int c = 0; c < cols; c++)
+//		{
+//			pWind->DrawCircle(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y, 1);
+//			pWind->DrawPixel(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y);
+//		}
+//	}
+//	//Draw ALL shapes
+//	for (int i = 0; i < shapeCount; i++)
+//	{
+//		if (shapeList[i])
+//			shapeList[i]->draw();
+//	}
+//}
 
 	
 	void grid::draw() const {

@@ -7,40 +7,40 @@
 
 ////////////////////////////////////////////////////  class Rect  ///////////////////////////////////////
 
-void Rect::setHeight(int newHeight)
+void Rect::setHeight(double newHeight)
 {
 	hght = newHeight;
 }
 
-void Rect::setWidth(int newWidth)
+void Rect::setWidth(double newWidth)
 {
 	wdth = newWidth;
 }
 
-int Rect::getHeight() const
+double Rect::getHeight() const
 {
 	return hght;
 }
 
-int Rect::getWidth() const
+double Rect::getWidth() const
 {
 	return wdth;
 }
 
 
-Rect::Rect(game* r_pGame, point ref, int r_hght, int r_wdth):shape(r_pGame,ref)
+Rect::Rect(game* r_pGame, point ref, double r_hght, double r_wdth):shape(r_pGame,ref)
 {
 	pGame = r_pGame;
 	hght = r_hght;
 	wdth = r_wdth;
 }
 
-void Rect::move(int X, int Y)
+void Rect::move(double X, double Y)
 {
 	this->RefPoint.x += X;
 	this->RefPoint.y += Y;
 }
-void Rect::resize(double n)
+void Rect::resize(double n, point ref)
 {
 	//scale += n;
 	hght = hght * (n + 1);
@@ -61,24 +61,24 @@ void Rect::draw() const
 	pW->DrawRectangle(upperLeft.x, upperLeft.y, lowerBottom.x, lowerBottom.y, FILLED);
 }
 
-int circle::getRad() const
+double circle::getRad() const
 {
 	return rad;
 }
 
-void circle::setRad(int newRad)
+void circle::setRad(double newRad)
 {
 	rad = newRad;
 }
 
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 //TODO: Add implementation for class circle here
-circle::circle(game* r_pGame, point ref, int r) :shape(r_pGame, ref) {
+circle::circle(game* r_pGame, point ref, double r) :shape(r_pGame, ref) {
 	rad = r;
 }
 
 
-void circle::resize(double n)
+void circle::resize(double n, point ref)
 {
 	//scale += n;
 	rad = rad * (1+n);
@@ -95,7 +95,7 @@ void circle::draw() const
 
 }
 
-void circle::move(int X, int Y)
+void circle::move(double X, double Y)
 {
 	this->RefPoint.x += X;
 	this->RefPoint.y += Y;
@@ -120,17 +120,11 @@ void Triangle::setSide(double newSide)
 
 Triangle::Triangle(game* r_pGame, point ref, double side) :shape(r_pGame, ref )
 {
-	double high = (sqrt(3)/2) * side;
-	 fx = RefPoint.x;
-	 fy = RefPoint.y - (2 * high / 3);
-	 sx = RefPoint.x - (side / 2);
-	 sy = RefPoint.y + (high / 3);
-	 tx = RefPoint.x + side / 2;
-	 ty = RefPoint.y + (high / 3);
+
 	this->side = side;
 }//	 
 
-void Triangle::resize(double n)
+void Triangle::resize(double n, point ref)
 {
 	//scale += n;
 	side = side * (n+1);
@@ -139,12 +133,18 @@ void Triangle::resize(double n)
 
 void Triangle::draw() const
 {
+	double high = (sqrt(3) / 2) * side;
+	point f = { RefPoint.x, RefPoint.y - (2 * high / 3) };
+	point s = { RefPoint.x - (side / 2), RefPoint.y + (high / 3) };
+	point t = { RefPoint.x + side / 2, RefPoint.y + (high / 3) };
+
 	window* pW = pGame->getWind();
 	pW->SetPen(borderColor, config.penWidth);
-	pW->DrawTriangle(fx, fy, sx, sy, tx, ty, FILLED);
+	pW->DrawTriangle(f.x, f.y, s.x, s.y, t.x, t.y, FILLED);
 }
 
-void Triangle::move(int X, int Y)
+
+void Triangle::move(double X, double Y)
 {
 	this->RefPoint.x += X;
 	this->RefPoint.y +=Y;
@@ -172,7 +172,7 @@ fTriangle::fTriangle(game* r_pGame, point ref, double side): shape(r_pGame,ref)
 	this->side = side;
 }
 
-void fTriangle::resize(double n)
+void fTriangle::resize(double n, point ref)
 {
 	//scale += n;
 	side = side * (n + 1);
@@ -186,7 +186,7 @@ void fTriangle::draw() const
 
 }
 
-void fTriangle::move(int X, int Y)
+void fTriangle::move(double X, double Y)
 {
 	this->RefPoint.x += X;
 	this->RefPoint.y += Y;

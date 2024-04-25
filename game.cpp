@@ -106,9 +106,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_Refresh:
 		printMessage("You Refreshed the Game");
 		break;
-	case ITM_Hammer:
-		printMessage("You clicked on Draw Hammer");
-		op = new operAddHammer(this);
+	case ITM_IceCream:
+		printMessage("You clicked on Draw Ice Cream");
+		op = new operAddIceCream(this);
 		break;
 	case ITM_Fanoos:
 		printMessage("Ramadan kareem Kol sana w enta tyb");

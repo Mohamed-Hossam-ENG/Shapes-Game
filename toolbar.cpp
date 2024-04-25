@@ -18,7 +18,7 @@ toolbar::toolbar(game* pG)
 	toolbarItemImages[ITM_circle] = "images\\toolbarItems\\circle.jpg";
 	toolbarItemImages[ITM_Rectangle] = "images\\toolbarItems\\rectangle.jpeg";
 	toolbarItemImages[ITM_SIGN] = "images\\toolbarItems\\Sign.jpg";
-	toolbarItemImages[ITM_Hammer] = "images\\toolbarItems\\hammer.jpg";
+	toolbarItemImages[ITM_IceCream] = "images\\toolbarItems\\hammer.jpg";
 	toolbarItemImages[ITM_Fanoos] = "images\\toolbarItems\\Fanoos.jpg";
 	toolbarItemImages[ITM_House] = "images\\toolbarItems\\house.jpg";
 	toolbarItemImages[ITM_Car] = "images\\toolbarItems\\car.jpg";

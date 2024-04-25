@@ -7,7 +7,7 @@ class game;     //forward declaration
 
 struct point
 {
-	int x, y;
+	double x, y;
 };
 
 enum ShapeType
@@ -37,11 +37,11 @@ public:
 	
     virtual void draw() const=0;
 
-	virtual void resize(double n);
+	virtual void resize(double n, point ref);
 	//for a shape to draw itself on the screen
 	//void setRefPoint(point p);
 	
-	virtual void move(int smallX, int smallY);
+	virtual void move(double smallX, double smallY);
 	
 	void setRefPoint(const point& newPoint);
 	point getRefPoint() const;

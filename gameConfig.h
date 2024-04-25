@@ -5,8 +5,15 @@
 //The folowing struct contains all game configurations
 // (MAY be loaded from a configuration file later)
 __declspec(selectany) //This line to prevent "redefinition error"
+
+
+
 struct 		
 {
+	struct {
+		int circleRadius = 50;
+		int triangleSide = 30;
+	}IceCream;
 	
 	int	windWidth=1350, windHeight=600,	//Window width and height
 		wx=5, wy=5,			//Window starting coordinates
@@ -86,7 +93,7 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 	ITM_circle,
 	ITM_Rectangle,
 	ITM_SIGN,
-	ITM_Hammer,
+	ITM_IceCream,
 	ITM_Fanoos,
 	ITM_House,
 	ITM_Car,
