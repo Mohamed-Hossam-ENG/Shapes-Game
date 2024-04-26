@@ -160,28 +160,23 @@ void fTriangle::setSidee(double newSide)
 	side = newSide;
 }
 
-fTriangle::fTriangle(game* r_pGame, point ref, double side): shape(r_pGame,ref)
+fTriangle::fTriangle(game* r_pGame, point ref, double side) :shape(r_pGame, ref)
 {
-	double high = (sqrt(3)/2) * side;
-	fx = RefPoint.x;
-	fy = RefPoint.y + (2 * high / 3);
-	sx = RefPoint.x - (side / 2);
-	sy = RefPoint.y - (high / 3);
-	tx = RefPoint.x + side / 2;
-	ty = RefPoint.y - (high / 3);
-	this->side = side;
-}
+	double high = (sqrt(3) / 2) * side;
 
-void fTriangle::resize(double n, point ref)
-{
-	//scale += n;
-	side = side * (n + 1);
+	this->side = side;
 }
 
 void fTriangle::draw() const
 {
 	window* pW = pGame->getWind();
 	pW->SetPen(borderColor, config.penWidth);
+	int fx = RefPoint.x;
+	int fy = RefPoint.y + (2 * side / 3);
+	int sx = RefPoint.x - (side / 2);
+	int sy = RefPoint.y - (side / 3);
+	int tx = RefPoint.x + side / 2;
+	int ty = RefPoint.y - (side / 3);
 	pW->DrawTriangle(fx, fy, sx, sy, tx, ty, FILLED);
 
 }
@@ -191,3 +186,5 @@ void fTriangle::move(double X, double Y)
 	this->RefPoint.x += X;
 	this->RefPoint.y += Y;
 }
+
+

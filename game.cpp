@@ -189,7 +189,7 @@ grid* game::getGrid() const
 ////////////////////////////////////////////////////////////////////////
 
 void game::handleKeyPress(char K) {
-	if (!shapesGrid || !shapesGrid->getActiveShape()) return;
+	//if (!shapesGrid || !shapesGrid->getActiveShape()) return;
 
 	 int Step = 50; 
 	shape* activeShape = shapesGrid->getActiveShape(); 
@@ -230,7 +230,7 @@ void game::run()
 
 		
 		if (pWind->WaitMouseClick(x, y)) { 
-			if (y >= 0 && y <600) {
+			if (y >= 0 && y <30) {
 				clickedItem = gameToolbar->getItemClicked(x);
 				operation* op = createRequiredOperation(clickedItem);
 				if (op) op->Act();
