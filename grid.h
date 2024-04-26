@@ -28,7 +28,10 @@ public:
 	void clearGridArea() const;
 	bool addShape(shape* newShape);
 	void setActiveShape(shape* actShape);
-	shape* getActiveShape() const;
+
+	shape* getActiveShape();
+
+	shape* grid::getActiveshape()const { return activeShape; }
 	void moveActiveShape(int dx, int dy);
 };
 

@@ -27,6 +27,8 @@ public:
 	void resize(double n, point ref) override;
 	void draw() const override;
 
+	void rotate() override;
+
 };
 
 
@@ -47,6 +49,7 @@ public:
 class Triangle :public shape
 {
 	double side;
+	double rotationangle;
 public:
 	//Triangle(game* r_pGame,int fx,int fy,int sx,int sy,int tx,int ty,double sidet);
 	double getSide() const;
@@ -56,6 +59,8 @@ public:
 	virtual void draw() const;
 	void move(double X, double Y) override;
 
+	void rotate() override;
+
 };
 
 
@@ -64,10 +69,10 @@ class fTriangle : public shape
 
 	double side;
 public:
-	fTriangle(game* r_pGame, double sidet);
 	double getSidee() const;
 	void setSidee(double newSide);
 	fTriangle(game* r_pGame, point ref, double side);
+	void resize(double n, point ref) override;
 	virtual void draw() const;
 	void move(double X, double Y) override;
 };

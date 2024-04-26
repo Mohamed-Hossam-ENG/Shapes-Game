@@ -43,12 +43,18 @@ operIncResize::operIncResize(game* r_pGame) :operation(r_pGame)
 operDecResize::operDecResize(game* r_pGame) :operation(r_pGame)
 {
 }
+operRotate::operRotate(game* r_pGame) :operation(r_pGame)
+{
+}
+operFlip::operFlip(game* r_pGame) : operation(r_pGame)
+{
+}
 
 void operDecResize::Act()
 {
 
 	grid * pGrid = pGame->getGrid();
-	shape* psh = pGrid->getActiveShape();
+	shape* psh = pGrid->getActiveshape();
 	point ref = psh->getRefPoint();
 	psh->resize(-0.1, ref);
 	
@@ -58,12 +64,32 @@ void operIncResize::Act()
 {
 
 	grid* pGrid = pGame->getGrid();
-	shape* psh = pGrid->getActiveShape();
+	shape* psh = pGrid->getActiveshape();
 	point ref = psh->getRefPoint();
 	psh->resize(0.1, ref);
 
 }
 
+void operFlip::Act()
+{
+	grid* pGrid = pGame->getGrid();
+	shape* psh = pGrid->getActiveshape();
+	point ref = psh->getRefPoint();
+	psh->flip(true);
+}
+
+
+
+void operRotate::Act()
+{
+
+	grid* pGrid = pGame->getGrid();
+	shape* activeShape = pGrid->getActiveshape();
+	if (activeShape) {
+		activeShape->rotate();
+		pGrid->draw();
+	}
+}
 
 
 void operAddSign::Act()

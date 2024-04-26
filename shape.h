@@ -38,6 +38,8 @@ public:
     virtual void draw() const=0;
 
 	virtual void resize(double n, point ref);
+	virtual void rotate();
+	virtual void flip(bool set);
 	//for a shape to draw itself on the screen
 	//void setRefPoint(point p);
 	

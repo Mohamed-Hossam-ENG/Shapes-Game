@@ -55,7 +55,7 @@ void grid::setActiveShape(shape* actShape)
 	activeShape = actShape;
 }
 
-shape* grid::getActiveShape() const
+shape* grid::getActiveShape() 
 {
 	return activeShape;
 }

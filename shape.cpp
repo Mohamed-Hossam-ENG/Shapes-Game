@@ -16,6 +16,15 @@ void shape::resize(double n, point ref)
 
 }
 
+void shape::rotate()
+{
+
+}
+
+void shape::flip(bool set)
+{
+}
+
  void shape::move(double smallX, double smallY)
 {
 	RefPoint.x += smallX;

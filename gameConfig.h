@@ -71,12 +71,14 @@ struct
 		int rectangleWidth = 40;
 		int topTriangleSide = 100;
 		int bottomTriangleSide = 100;
+		int circleRad = 13;
 	}TreeShape;
 	struct {
 		int rectangleheight = 50;
 		int rectanglewidth = 180;
-		int circleRightRadius = 20;
-		int circleLeftRadius = 20;
+		int circletRadius = 20;
+		int triangleside = 70;
+
 
 	}CarShape;
 }config;

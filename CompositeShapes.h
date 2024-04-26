@@ -38,6 +38,7 @@ class iceCream : public shape {
 	circle* circ1;
 public:
 	iceCream(game* r_pGame, point ref);
+	void resize(double n, point ref)override;
 	virtual void draw()const;
 	void move(double X, double Y) override;
 };
@@ -49,6 +50,7 @@ class fanoos : public shape
 	Triangle* bottom;
 public : 
 	fanoos(game* r_pGame, point ref);
+	void resize(double n, point ref)override;
 	virtual void draw() const;
 	void move(double X, double Y) override;
 };
@@ -61,6 +63,7 @@ class House :public shape {
 	Triangle* t1;
 public:
 	House(game* r_pGame, point ref);
+	void resize(double n, point ref)override;
 	virtual void draw() const;
 	void move(double X, double Y) override;
 
@@ -74,6 +77,9 @@ class Tree :public shape {
 	circle* c1;
 public:
 	Tree(game* r_pGame, point ref);
+	void resize(double n, point ref)override;
+	void flip(bool set)override;
+
 	virtual void draw() const;
 	void move(double deltaX, double deltaY) override;
 };
@@ -85,6 +91,8 @@ class Car :public shape {
 	Triangle* t1;
 public:
 	Car(game* r_pGame, point ref);
+
+	void resize(double n, point ref)override;
 
 	virtual void draw() const;
 	void move(double X, double Y) override;

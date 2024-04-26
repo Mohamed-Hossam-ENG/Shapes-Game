@@ -61,6 +61,23 @@ void Rect::draw() const
 	pW->DrawRectangle(upperLeft.x, upperLeft.y, lowerBottom.x, lowerBottom.y, FILLED);
 }
 
+void Rect::rotate() {
+	window* pW = pGame->getWind();
+	pW->SetPen(config.penColor, config.penWidth);
+	pW->SetBrush(config.fillColor);
+	point upperLeft, lowerBottom;
+	int temp = hght;
+	hght = wdth;
+	wdth = temp;
+	upperLeft.x = RefPoint.x - wdth / 2;
+	upperLeft.y = RefPoint.y - hght / 2;
+	lowerBottom.x = RefPoint.x + wdth / 2;
+	lowerBottom.y = RefPoint.y + hght / 2;
+
+	pW->DrawRectangle(upperLeft.x, upperLeft.y, lowerBottom.x, lowerBottom.y, FILLED);
+
+}
+
 double circle::getRad() const
 {
 	return rad;
@@ -122,7 +139,7 @@ Triangle::Triangle(game* r_pGame, point ref, double side) :shape(r_pGame, ref )
 {
 
 	this->side = side;
-}//	 
+}
 
 void Triangle::resize(double n, point ref)
 {
@@ -134,9 +151,9 @@ void Triangle::resize(double n, point ref)
 void Triangle::draw() const
 {
 	double high = (sqrt(3) / 2) * side;
-	point f = { RefPoint.x, RefPoint.y - (2 * high / 3) };
-	point s = { RefPoint.x - (side / 2), RefPoint.y + (high / 3) };
-	point t = { RefPoint.x + side / 2, RefPoint.y + (high / 3) };
+	point f = { RefPoint.x, RefPoint.y - ( high / 2) };
+	point s = { RefPoint.x - (side / 2), RefPoint.y + (high / 2) };
+	point t = { RefPoint.x + side / 2, RefPoint.y + (high / 2) };
 
 	window* pW = pGame->getWind();
 	pW->SetPen(borderColor, config.penWidth);
@@ -149,6 +166,43 @@ void Triangle::move(double X, double Y)
 	this->RefPoint.x += X;
 	this->RefPoint.y +=Y;
 }
+
+void Triangle::rotate()
+{
+	rotationangle += 90.0;
+
+	double theta = rotationangle * 3.14159265358979323846 / 180.0;
+
+
+	// Calculate trigonometric functions
+	double cosTheta = cos(theta);
+	double sinTheta = sin(theta);
+	double high = (sqrt(3) / 2) * side;
+	// Define triangle vertices
+	point vertices[3] = { {RefPoint.x, RefPoint.y - (high / 2)},
+
+						  {RefPoint.x - (side / 2), RefPoint.y + (high / 2)},
+
+						  { RefPoint.x + side / 2, RefPoint.y + (high / 2)} };
+
+	// Rotate each vertex around the reference point
+	for (int i = 0; i < 3; ++i) {
+		double newX = cosTheta * (vertices[i].x - RefPoint.x) - sinTheta * (vertices[i].y - RefPoint.y) + RefPoint.x;
+		double newY = sinTheta * (vertices[i].x - RefPoint.x) + cosTheta * (vertices[i].y - RefPoint.y) + RefPoint.y;
+
+		// Update vertex coordinates
+		vertices[i].x = newX;
+		vertices[i].y = newY;
+	}
+
+	// Redraw the triangle with the new vertices
+	window* pW = pGame->getWind();
+	pW->SetPen(config.penColor, config.penWidth);
+	pW->SetBrush(config.fillColor);
+
+	pW->DrawTriangle(vertices[0].x, vertices[0].y, vertices[1].x, vertices[1].y, vertices[2].x, vertices[2].y, FILLED);
+}
+
 
 double fTriangle::getSidee() const
 {
@@ -167,17 +221,22 @@ fTriangle::fTriangle(game* r_pGame, point ref, double side) :shape(r_pGame, ref)
 	this->side = side;
 }
 
+void fTriangle::resize(double n, point ref)
+{
+	//scale += n;
+	side = side * (n + 1);
+}
+
 void fTriangle::draw() const
 {
+	double high = (sqrt(3) / 2) * side;
+	point f = { RefPoint.x , RefPoint.y + (high / 2) };
+	point s = { RefPoint.x - side / 2 , RefPoint.y - (high / 2) };
+	point t = { RefPoint.x + side / 2 , RefPoint.y - (high / 2) };
+
 	window* pW = pGame->getWind();
-	pW->SetPen(borderColor, config.penWidth);
-	int fx = RefPoint.x;
-	int fy = RefPoint.y + (2 * side / 3);
-	int sx = RefPoint.x - (side / 2);
-	int sy = RefPoint.y - (side / 3);
-	int tx = RefPoint.x + side / 2;
-	int ty = RefPoint.y - (side / 3);
-	pW->DrawTriangle(fx, fy, sx, sy, tx, ty, FILLED);
+	pW->SetPen(borderColor, config.penWidth); 
+	pW->DrawTriangle(f.x, f.y, s.x, s.y, t.x, t.y, FILLED);
 
 }
 

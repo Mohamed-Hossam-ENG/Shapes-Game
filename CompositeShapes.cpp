@@ -39,12 +39,23 @@ void Sign::draw() const
 iceCream::iceCream(game* r_pGame, point ref) : shape(r_pGame, ref)
 {
 	point topRef = ref;
-	point triRef = { ref.x , ref.y + 45 };
-	point top1ref = { ref.x,ref.y -50  };
+	point triRef = { ref.x , ref.y + 0.5 * 3 * config.IceCream.triangleSide * (sqrt(3) / 2) * 3 / 2 };
+	point top1ref = { ref.x,ref.y - config.IceCream.circleRadius };
 
 	circ = new circle(pGame, topRef, config.IceCream.circleRadius);
-	triang = new fTriangle(pGame, triRef, config.IceCream.triangleSide + 60);
-	circ1 = new circle(pGame, top1ref,50);
+	triang = new fTriangle(pGame, triRef, 3* config.IceCream.triangleSide );
+	circ1 = new circle(pGame, top1ref, config.IceCream.circleRadius);
+}
+
+void iceCream::resize(double n, point ref)
+{
+	circ->resize(n, { 0,0 });
+	triang->resize(n, { 0,0 });
+	circ1->resize(n, { 0,0 });
+
+	circ->setRefPoint (ref);
+	triang->setRefPoint({ ref.x , ref.y + 0.5* triang->getSidee() * (sqrt(3) / 2) * 3/2 });
+	circ1->setRefPoint({ ref.x ,ref.y - circ->getRad() });
 }
 
 void iceCream::draw() const
@@ -53,6 +64,8 @@ void iceCream::draw() const
 	triang->draw();
 	circ1->draw();
 }
+
+
 
 void iceCream::move(double X, double Y)
 {
@@ -65,14 +78,24 @@ fanoos::fanoos(game* r_pGame, point ref) : shape(r_pGame,ref)
 {
 
 	point topref = ref;
-	point midref = { ref.x,ref.y + (config.fanoosShape.topside * (sqrt(3) / 2)) + (config.fanoosShape.midside * (sqrt(3) / 2)) -78 };
-	point botref = { ref.x,ref.y + (config.fanoosShape.midside * (sqrt(3) / 2) + (config.fanoosShape.bottomside * (sqrt(3) / 2))) +15 };
+	point midref = { ref.x,ref.y + (0.5*config.fanoosShape.topside * (sqrt(3) / 2))+ 0.5 * config.fanoosShape.midside * (sqrt(3) / 2) };
+	point botref = { ref.x,ref.y + (0.5 * config.fanoosShape.topside * (sqrt(3) / 2)) + config.fanoosShape.midside * (sqrt(3) / 2) + 0.5 * config.fanoosShape.bottomside * (sqrt(3) / 2) };
 	top = new Triangle(pGame, topref, config.fanoosShape.topside);
 	mid = new fTriangle(pGame, midref, config.fanoosShape.midside);
 	bottom = new Triangle(pGame, botref, config.fanoosShape.bottomside);
 
+}
 
-		
+void fanoos::resize(double n, point ref)
+{
+	top->resize(n, { 0,0 });
+	mid->resize(n, { 0,0 });
+	bottom->resize(n, { 0,0 });
+
+	top->setRefPoint( ref);
+	mid->setRefPoint ({ ref.x,ref.y + (0.5 * top->getSide() * (sqrt(3) / 2)) + 0.5 * mid->getSidee() * (sqrt(3) / 2) });
+	bottom->setRefPoint ({ ref.x,ref.y + (0.5 * top->getSide() * (sqrt(3) / 2)) + mid->getSidee() * (sqrt(3) / 2) + 0.5 * bottom->getSide() * (sqrt(3) / 2) });
+
 }
 
 void fanoos::draw() const
@@ -91,57 +114,109 @@ void fanoos::move(double X, double Y)
 House::House(game* r_pGame, point ref) :shape(r_pGame, ref) {
 
 	point upref = ref;
-	point downref = { ref.x, ref.y + config.sighShape.topHeight + 30 };
-	point up1ref = { ref.x,ref.y +150 };
-	point uptrig = { ref.x,ref.y -30 };
-	up = new Triangle(pGame, upref, 100);
-	down = new Rect(pGame, downref, 100, 100);
-	
-	t1 = new Triangle(pGame, uptrig, 100);
+	point downref = { ref.x, ref.y + (0.5 * config.HouseShape.topTriangleSide * (sqrt(3) / 2)) + config.HouseShape.topTriangleSide/2 };
+	point uptrig = { ref.x,ref.y - (0.3 * config.HouseShape.topTriangleSide * (sqrt(3) / 2)) };
+	up = new Triangle(pGame, upref, config.HouseShape.topTriangleSide);
+	down = new Rect(pGame, downref, config.HouseShape.topTriangleSide, config.HouseShape.topTriangleSide);
+	t1 = new Triangle(pGame, uptrig, config.HouseShape.topTriangleSide);
 
+	//int rectangleHeight = 130;
+	//int rectangleWidth = 40;
+	//int topTriangleSide = 100;
+	//int bottomTriangleSide = 100;
+}
+void House::resize(double n, point ref)
+{
+
+	up->resize(n, { 0,0 });
+	down->resize(n, { 0,0 });
+	t1->resize(n, { 0,0 });
+
+	up->setRefPoint(ref);
+	down->setRefPoint({ ref.x, ref.y + (0.5 * up->getSide() * (sqrt(3) / 2)) + up->getSide() / 2 });
+	t1->setRefPoint({ ref.x,ref.y - (0.3 * up->getSide() * (sqrt(3) / 2)) });
+
+
+}
+
+void House::draw() const
+{
+	up->draw();
+	down->draw();
+
+	t1->draw();
+}
+void House::move(double X, double Y)
+{
+	up->move(X, Y);   // Assuming rect is a pointer to Rect
+
+	down->move(X, Y);
+	t1->move(X, Y);
 }
 
 Tree::Tree(game* r_pGame, point ref) :shape(r_pGame, ref) {
 
 	point trig1 = ref;
-	point trig2 = { ref.x,ref.y + 40 };
-	point rect = { ref.x, ref.y + config.sighShape.topHeight + 70 };
-	point cir = { ref.x,ref.y - 60 };
+	point trig2 = { ref.x,ref.y + (0.5 * config.TreeShape.topTriangleSide *(sqrt(3) / 2)) };
+	point rect = { ref.x, ref.y + ( config.TreeShape.topTriangleSide * (sqrt(3) / 2))  + 0.5*config.TreeShape.rectangleHeight };
+	point cir = { ref.x,ref.y - (0.5 * config.TreeShape.topTriangleSide * (sqrt(3) / 2)) - config.TreeShape.circleRad };
 
 	t1 = new Triangle(pGame, trig1, 100);
 	t2 = new Triangle(pGame, trig2, 100);
 	r1 = new Rect(pGame, rect, 130, 30);
-	c1 = new circle(pGame, cir, 13);
+	c1 = new circle(pGame, cir, config.TreeShape.circleRad);
 
+}
+
+void Tree::resize(double n, point ref)
+{
+	t1->resize(n, { 0,0 });
+	t2->resize(n, { 0,0 });
+	r1->resize(n, { 0,0 });
+	c1->resize(n, { 0,0 });
+
+	t1->setRefPoint(ref);
+	t2->setRefPoint({ ref.x,ref.y + (0.5 * t1->getSide() * (sqrt(3) / 2)) });
+	r1->setRefPoint({ ref.x, ref.y + (t1->getSide() * (sqrt(3) / 2)) + 0.5 * r1->getHeight()});
+	c1->setRefPoint({ ref.x,ref.y - (0.5 * t1->getSide() * (sqrt(3) / 2)) - c1->getRad()});
+
+
+}
+
+void Tree::flip(bool set)
+{
 }
 
 Car::Car(game* r_pGame, point ref) :shape(r_pGame, ref) {
 
 	point up = ref;
-	point cira = { ref.x - 60,ref.y + 40 };
-	point cirb = { ref.x + 60,ref.y + 40 };
-	point trig = { ref.x ,ref.y - 40 };
-	rect = new Rect(pGame, ref, 50, 180);
-	cir1 = new circle(pGame, cira, 20);
-	cir2 = new circle(pGame, cirb, 20);
-	t1 = new Triangle(pGame, trig, 70);
+	point cira = { ref.x - config.CarShape.rectanglewidth/3 , ref.y + config.CarShape.rectanglewidth/4 };
+	point cirb = { ref.x + config.CarShape.rectanglewidth / 3, ref.y + config.CarShape.rectanglewidth / 4 };
+	point trig = { ref.x , ref.y - (0.5 * config.CarShape.triangleside * (sqrt(3) / 2)) - config.CarShape.rectangleheight/2 };
+
+	rect = new Rect(pGame, up, config.CarShape.rectangleheight, config.CarShape.rectanglewidth);
+	cir1 = new circle(pGame, cira, config.CarShape.circletRadius);
+	cir2 = new circle(pGame, cirb, config.CarShape.circletRadius);
+	t1 = new Triangle(pGame, trig, config.CarShape.triangleside);
 
 
 }
-void House::draw() const
+
+void Car::resize(double n, point ref)
 {
-	up->draw();
-	down->draw();
-	
-	t1->draw();
+	rect->resize(n, { 0,0 });
+	cir1->resize(n, { 0,0 });
+	cir2->resize(n, { 0,0 });
+	t1->resize(n, { 0,0 });
+
+	rect->setRefPoint(ref);
+	cir1->setRefPoint({ ref.x - rect->getWidth() / 3 , ref.y + rect->getWidth() / 4 });
+	cir2->setRefPoint({ ref.x + rect->getWidth() / 3, ref.y + rect->getWidth() / 4 });
+	t1->setRefPoint({ ref.x , ref.y - (0.5 * t1->getSide() * (sqrt(3) / 2)) - rect->getHeight() / 2 });
+
 }
-void House::move(double X, double Y)
-{
-	up->move(X,Y);   // Assuming rect is a pointer to Rect
-	
-	down->move(X,Y);
-	t1->move(X, Y);
-}
+
+
 void Car::draw() const
 {
 	rect->draw();
@@ -150,6 +225,7 @@ void Car::draw() const
 	t1->draw();
 
 }
+
 void Car::move(double X, double Y)
 {
 	rect->move(X, Y);   // Assuming rect is a pointer to Rect

@@ -102,6 +102,8 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		break;
 	case ITM_Rotate:
 		printMessage("You Rotated this Item");
+		op = new operRotate(this);
+		printMessage("You Rotated this Item");
 		break;
 	case ITM_Refresh:
 		printMessage("You Refreshed the Game");
