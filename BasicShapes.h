@@ -58,18 +58,16 @@ public:
 
 };
 
+
 class fTriangle : public shape
 {
-	double fx, fy;
-	double sx, sy;
-	double tx, ty;
+
 	double side;
 public:
-	//Triangle(game* r_pGame,int fx,int fy,int sx,int sy,int tx,int ty,double sidet);
+	fTriangle(game* r_pGame, double sidet);
 	double getSidee() const;
 	void setSidee(double newSide);
 	fTriangle(game* r_pGame, point ref, double side);
-	void resize(double n, point ref) override;
 	virtual void draw() const;
 	void move(double X, double Y) override;
 };
