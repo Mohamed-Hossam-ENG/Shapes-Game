@@ -102,5 +102,9 @@ public:
 	operFlip(game* r_pGame);
 	virtual void Act();
 };
-
+class operDelete :public operation {
+public:
+	operDelete(game* r_pGame);
+	virtual void Act();
+};
 

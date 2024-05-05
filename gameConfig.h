@@ -91,11 +91,11 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 		//Sign shape item
 
 	//Exit item
-	ITM_Triangle,
-	ITM_circle,
-	ITM_Rectangle,
+	//ITM_Triangle,
+	//ITM_circle,
+	//ITM_Rectangle,
 	ITM_SIGN,
-	ITM_IceCream,
+	ITM_Icecream,
 	ITM_Fanoos,
 	ITM_House,
 	ITM_Car,
@@ -103,15 +103,23 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 	ITM_Increase,
 	ITM_Decrease,
 	ITM_Rotate,
+	ITM_FLIP,
 	ITM_Refresh,
 	ITM_Hint,
 	ITM_Delete,
 	ITM_Select_GAME_LEVEl,
-	ITM_Save_and_Load,
-
-
-	//TODO: Add more items names here
 	ITM_EXIT,
+	ITM_Save_and_Load,
+	
+
+
+	ITM_Actual_Lives,
+	ITM_String_Lives,
+	ITM_String_Score,
+	ITM_Actual_Score,
+	ITM_String_Level,
+	ITM_Actual_Level,
+	//TODO: Add more items names here
 	ITM_CNT		//no. of toolbar items ==> This should be the last line in this enum
 
 };

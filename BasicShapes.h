@@ -1,78 +1,72 @@
-//Header file for Basic shapes in the game
 #pragma once
 #include "shape.h"
 
-////////////////////////////////////////////////////  class Rect  ///////////////////////////////////////
-//Rectanle class
-/*							wdth
-					---------------------
-					|					|
-			hght    |		 x			|     x is the reference point of the rectangle
-					|					|
-					--------------------
-*/
-
-
 class Rect : public shape
 {
-	double hght, wdth;	//height and width of the recangle
+	float hght, wdth;	//height and width of the recangle
 public:
-	void setHeight(double newHeight);
-	void setWidth(double newWidth);
-	double getHeight() const;
-	double getWidth() const;
-	Rect(game* r_pGame, point ref, double r_hght, double r_wdth);
-	
-	void move(double deltaX, double deltaY) override;
-	void resize(double n, point ref) override;
+	void setHeight(float newHeight);
+	void setWidth(float newWidth);
+	float getHeight() const;
+	float getWidth() const;
+	Rect(game* r_pGame, point ref, float r_hght, float r_wdth);
+	void flip();
+	void move(float deltaX, float deltaY) override;
+	virtual void resize(float size);
 	void draw() const override;
-
-	void rotate() override;
+	point pref() const;
+	void rotate();
 
 };
 
-
-////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
-//Reference point of the circle is its center
 class circle :public shape
 {
 	//Add data memebrs for class circle
-	double rad;
+	float rad;
 public:	
-	double getRad() const;
-	void setRad(double newRad);
-	circle(game* r_pGame, point ref, double r);	//add more parameters for the constructor if needed
-	void resize(double n, point ref) override;
+	float getRad() const;
+	void setRad(float newRad);
+	circle(game* r_pGame, point ref, float r);	//add more parameters for the constructor if needed
+	virtual void resize(float size);
 	virtual void draw() const;
-	void move(double X, double Y) override;
+	virtual void rotate();
+	void move(float X, float Y) override;
+	point pref() const; void flip();
 };
+
 class Triangle :public shape
 {
-	double side;
-	double rotationangle;
+	float side;
+	float rotationangle;
+	point f, s, t;
 public:
 	//Triangle(game* r_pGame,int fx,int fy,int sx,int sy,int tx,int ty,double sidet);
-	double getSide() const;
-	void setSide(double newSide);
-	Triangle(game* r_pGame, point ref, double side);
-	void resize(double n, point ref) override;
-	virtual void draw() const;
-	void move(double X, double Y) override;
 
+	float getSide() const;
+	Triangle(game* r_pGame, point ref, float side);
+	virtual void resize(float size);
+	virtual void draw() const;
+	void move(float X, float Y) override;
 	void rotate() override;
+	point pref() const; void flip();
 
 };
 
-
-class fTriangle : public shape
+class fTriangle :public shape
 {
-
-	double side;
+	float sideee;
+	float rotationangle;
+	point f, s, t;
 public:
-	double getSidee() const;
-	void setSidee(double newSide);
-	fTriangle(game* r_pGame, point ref, double side);
-	void resize(double n, point ref) override;
+
+	float getSide() const;
+	void setSide(float newSide);
+	fTriangle(game* r_pGame, point ref, float side);
+	virtual void resize(float size);
 	virtual void draw() const;
-	void move(double X, double Y) override;
+	void move(float X, float Y) override;
+	void update_points();
+	void rotate() override;
+	point pref() const; void flip();
+
 };

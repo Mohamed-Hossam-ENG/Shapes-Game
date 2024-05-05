@@ -68,7 +68,7 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		op = new operAddSign(this);
 		printMessage("You Clicked on Create A Sign");
 		break;
-	case ITM_Triangle:
+	/*case ITM_Triangle:
 		op = new operAddTriangle(this);
 		printMessage("You Clicked on Create A Triangle");
 		break;
@@ -79,7 +79,7 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_Rectangle:
 		op = new operAddRectangle(this);
 		printMessage("You Clicked on Create A Rectangle");
-		break;
+		break;*/
 	case ITM_Save_and_Load:
 		printMessage("You Cliked on Save And Load");
 		break;
@@ -91,6 +91,7 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("You Decreased the Size");
 		break;
 	case ITM_Delete:
+		op = new operDelete(this);
 		printMessage("You Deleted this Item");
 			break;
 	case ITM_Hint:
@@ -101,14 +102,14 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("You Increased this items size");
 		break;
 	case ITM_Rotate:
-		printMessage("You Rotated this Item");
+	
 		op = new operRotate(this);
 		printMessage("You Rotated this Item");
 		break;
 	case ITM_Refresh:
 		printMessage("You Refreshed the Game");
 		break;
-	case ITM_IceCream:
+	case ITM_Icecream:
 		printMessage("You clicked on Draw Ice Cream");
 		op = new operAddIceCream(this);
 		break;
@@ -128,7 +129,11 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_Tree:
 		op = new operAddTree(this);
 		printMessage("You clicked on Draw tree");
-		
+		break;
+	case ITM_FLIP:
+		op = new operFlip(this);
+			printMessage("You clicked on Flip");
+		break;
 	}
 	
 
@@ -191,22 +196,22 @@ grid* game::getGrid() const
 ////////////////////////////////////////////////////////////////////////
 
 void game::handleKeyPress(char K) {
-	//if (!shapesGrid || !shapesGrid->getActiveShape()) return;
+	if (!shapesGrid) return;
 
 	 int Step = 50; 
 	shape* activeShape = shapesGrid->getActiveShape(); 
 	
 	switch (K) {
-	case 'g': //up
+	case 'w': //up
 		activeShape->move(0, -Step);
 		break;
-	case 'v'://down 
+	case 's'://down 
 		activeShape->move(0,Step);
 		break;
-	case 'b': //right 
+	case 'a': //right 
 		activeShape->move(-Step, 0);
 		break;
-	case 'n'://left 
+	case 'd'://left 
 		activeShape->move(Step, 0);
 		break;
 	}
@@ -231,16 +236,33 @@ void game::run()
 		}
 
 		
-		if (pWind->WaitMouseClick(x, y)) { 
+		if (pWind->GetMouseClick(x, y)) { 
 			if (y >= 0 && y <30) {
 				clickedItem = gameToolbar->getItemClicked(x);
 				operation* op = createRequiredOperation(clickedItem);
 				if (op) op->Act();
+
+
+				if(clickedItem != ITM_Delete)
 				shapesGrid->draw(); 
 			}
 		}
 	} while (clickedItem != ITM_EXIT);
 }
 		
+int game::getCurrentGameLevel() const
+{
+	return Current_gameLevel;
+}
+
+int game::getCurrentLives() const
+{
+	return Lives;
+}
+
+int game::getCurrentScore() const
+{
+	return Current_score;
+}
 
 		

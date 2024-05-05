@@ -16,6 +16,9 @@ class game
 	
 	window* pWind;	//Pointer to the CMU graphics window
 	grid* shapesGrid;
+	int Current_gameLevel = 1;
+	int Lives = 5;
+	int Current_score = 0;
 
 public:
 	game();
@@ -28,7 +31,9 @@ public:
 	void createToolBar();		//creates the toolbar
 	void createGrid();		//creates the shapes grid
 	void game::handleKeyPress(char Key);
-	
+	int getCurrentGameLevel() const;
+	int getCurrentLives() const;
+	int getCurrentScore() const;
 	window* getWind() const;		//returns a pointer to the graphics window
 	grid* getGrid() const;		//returns a pointer to the shapes grid
 

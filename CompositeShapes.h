@@ -1,46 +1,30 @@
 #pragma once
 #include "Basicshapes.h"
 
-
-////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
-//This class reprsents the composite shape "sign"
-//The sign is composed of 2 Recatngles
-/*				
-
-					 ------------------
-					|				   |
-					|		 x		   |     x is the reference point of the Sign shape
-					|			       |
-					 ------------------
-						   |   |
-						   |   |
-						   | . |
-						   |   |
-						   |   |
-							---
-*/
-
-//Note: sign reference point is the center point of the top rectangle
 class Sign :public shape
 {
 	Rect* base;
 	Rect* top;
 public:
 	Sign(game* r_pGame, point ref);
-	void resize(double n, point ref)override;
+	virtual void resize(float size);
 	virtual void draw() const;
-
+	virtual void rotate();
+	void move(float X, float Y) override;
+	virtual void flip();
 
 };
+
 class iceCream : public shape {
 	circle* circ;
 	fTriangle* triang;
 	circle* circ1;
 public:
 	iceCream(game* r_pGame, point ref);
-	void resize(double n, point ref)override;
+	virtual void resize(float size);
 	virtual void draw()const;
-	void move(double X, double Y) override;
+	virtual void rotate();
+	void move(float X, float Y) override; virtual void flip();
 };
 
 class fanoos : public shape
@@ -50,10 +34,12 @@ class fanoos : public shape
 	Triangle* bottom;
 public : 
 	fanoos(game* r_pGame, point ref);
-	void resize(double n, point ref)override;
+	virtual void resize(float size);
 	virtual void draw() const;
-	void move(double X, double Y) override;
+	virtual void rotate();
+	void move(float X, float Y) override; virtual void flip();
 };
+
 class House :public shape {
 
 
@@ -63,11 +49,13 @@ class House :public shape {
 	Triangle* t1;
 public:
 	House(game* r_pGame, point ref);
-	void resize(double n, point ref)override;
+	virtual void resize(float size);
 	virtual void draw() const;
-	void move(double X, double Y) override;
+	virtual void rotate();
+	void move(float X, float Y) override; virtual void flip();
 
 };
+
 class Tree :public shape {
 
 
@@ -77,12 +65,13 @@ class Tree :public shape {
 	circle* c1;
 public:
 	Tree(game* r_pGame, point ref);
-	void resize(double n, point ref)override;
-	void flip(bool set)override;
-
+	virtual void resize(float size);
+	virtual void flip();
+	virtual void rotate();
 	virtual void draw() const;
-	void move(double deltaX, double deltaY) override;
+	void move(float deltaX, float deltaY) override;
 };
+
 class Car :public shape {
 
 	Rect* rect;
@@ -91,11 +80,11 @@ class Car :public shape {
 	Triangle* t1;
 public:
 	Car(game* r_pGame, point ref);
-
-	void resize(double n, point ref)override;
-
+	virtual void flip();
+	virtual void resize(float size);
+	virtual void rotate();
 	virtual void draw() const;
-	void move(double X, double Y) override;
+	void move(float X, float Y) override;
 
 
 

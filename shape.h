@@ -37,13 +37,13 @@ public:
 	
     virtual void draw() const=0;
 
-	virtual void resize(double n, point ref);
-	virtual void rotate();
-	virtual void flip(bool set);
+	virtual void resize(float size);
+	virtual void rotate() = 0;
+	virtual void flip() = 0;
 	//for a shape to draw itself on the screen
 	//void setRefPoint(point p);
 	
-	virtual void move(double smallX, double smallY);
+	virtual void move(float smallX, float smallY);
 	
 	void setRefPoint(const point& newPoint);
 	point getRefPoint() const;

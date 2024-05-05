@@ -32,6 +32,7 @@ public:
 	shape* getActiveShape();
 
 	shape* grid::getActiveshape()const { return activeShape; }
+	void drawAllButActiveShape() const;
 	void moveActiveShape(int dx, int dy);
 };
 
