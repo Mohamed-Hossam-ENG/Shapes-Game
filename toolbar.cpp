@@ -28,8 +28,6 @@ toolbar::toolbar(game* pG)
 	toolbarItemImages[ITM_Save_and_Load] = "images\\toolbarItems\\Save_and_Load.jpeg";
 	toolbarItemImages[ITM_Select_GAME_LEVEl] = "images\\toolbarItems\\Game_Level.jpeg";
 	toolbarItemImages[ITM_EXIT] = "images\\toolbarItems\\toolbar_Exit.jpg";
-	
-
 	toolbarItemImages[ITM_Actual_Lives] = to_string(pGame->getCurrentLives());
 	toolbarItemImages[ITM_String_Lives] = " Lives: ";
 	toolbarItemImages[ITM_String_Score] = "Score = ";
@@ -42,40 +40,40 @@ toolbar::toolbar(game* pG)
 	//Draw toolbar item one image at a time
 	for (int i = 0; i < ITM_CNT; i++)
 	{
-		if (i < 15)
+		if (i < 16)
 			pWind->DrawImage(toolbarItemImages[i], i * config.toolbarItemWidth, 0, config.toolbarItemWidth, height);
 		//pWind->DrawImage()
-		else if (i == 15)
+		else if (i == 16)
 		{
 			pWind->SetPen(RED, 200);
 			pWind->SetFont(20, BOLD, BY_NAME);
 			pWind->DrawString(i * config.toolbarItemWidth + 1, 0, toolbarItemImages[i]);
 		}
-		else if (i == 16)
+		else if (i == 17)
 		{
 			pWind->SetPen(BLACK, 20);
 			pWind->SetFont(20, BOLD, BY_NAME);
 			pWind->DrawString((i - 1) * config.toolbarItemWidth + 20, 0, toolbarItemImages[i]);
 		}
-		else if (i == 17)
+		else if (i == 18)
 		{
 			pWind->SetPen(BLACK, 20);
 			pWind->SetFont(20, BOLD, BY_NAME);
 			pWind->DrawString((i - 2) * config.toolbarItemWidth + 1, 18, toolbarItemImages[i]);
 		}
-		else if (i == 18)
+		else if (i == 19)
 		{
 			pWind->SetPen(BLACK, 20);
 			pWind->SetFont(20, BOLD, BY_NAME);
 			pWind->DrawString((i - 3) * config.toolbarItemWidth + 65, 18, toolbarItemImages[i]);
 		}
-		else if (i == 19)
+		else if (i == 20)
 		{
 			pWind->SetPen(BLACK, 20);
 			pWind->SetFont(20, BOLD, BY_NAME);
 			pWind->DrawString((i - 4) * config.toolbarItemWidth + 1, 35, toolbarItemImages[i]);
 		}
-		else if (i == 20)
+		else if (i == 21)
 		{
 			pWind->SetPen(BLACK, 20);
 			pWind->SetFont(20, BOLD, BY_NAME);
