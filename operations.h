@@ -107,4 +107,9 @@ public:
 	operDelete(game* r_pGame);
 	virtual void Act();
 };
+class operDeleteRandomShapes :public operation {
+public:
+	operDeleteRandomShapes(game* r_pGame);
+	virtual void Act();
+};
 

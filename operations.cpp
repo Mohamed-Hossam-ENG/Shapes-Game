@@ -61,7 +61,7 @@ void operDecResize::Act()
 	grid * pGrid = pGame->getGrid();
 	shape* psh = pGrid->getActiveshape();
 	point ref = psh->getRefPoint();
-	psh->resize(0.5);
+	psh->resize(1/1.1);
 	
 }
 
@@ -71,7 +71,7 @@ void operIncResize::Act()
 	grid* pGrid = pGame->getGrid();
 	shape* psh = pGrid->getActiveshape();
 	point ref = psh->getRefPoint();
-	psh->resize(2);
+	psh->resize(10);
 
 }
 
@@ -304,7 +304,13 @@ void operDelete::Act()
 	grid* pGrid = pGame->getGrid();
 	//pGrid->clearGridArea();
 	pGrid->drawAllButActiveShape();
+    shape *psh = pGrid->getActiveshape();
+	delete psh;
+	psh = nullptr;
 
 }
 
+void operDeleteRandomShapes::Act()
+{
 
+}
