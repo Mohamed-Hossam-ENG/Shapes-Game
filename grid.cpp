@@ -2,6 +2,8 @@
 #include "game.h"
 #include "gameConfig.h"
 #include"shape.h"
+#include <cstdlib>
+#include <time.h>
 
 
 grid::grid(point r_uprleft, int wdth, int hght, game* pG)
@@ -55,9 +57,26 @@ void grid::setActiveShape(shape* actShape)
 	activeShape = actShape;
 }
 
+
+	
 shape* grid::getActiveShape() 
 {
+
 	return activeShape;
+}
+
+shape* grid::getShapesList()
+{
+
+	return shapeList[0];
+}
+
+void grid::deleteShapesList()
+{
+	for (int i = 0; i < shapeCount; i++)
+	{
+		delete shapeList[i];
+	}
 }
 
 void grid::drawAllButActiveShape() const
@@ -82,6 +101,34 @@ void grid::drawAllButActiveShape() const
 	{
 		if (shapeList[i])
 			shapeList[i]->draw();
+
+	}
+	
+}
+
+void grid::drawAllButRandomShape() const
+{
+	clearGridArea(); // Clear the grid area first
+	window* pWind = pGame->getWind();
+
+	pWind->SetPen(config.gridDotsColor, 1);
+	pWind->SetBrush(config.gridDotsColor);
+
+	// Draw dots showing the grid reference points
+	for (int r = 1; r < rows; r++) {
+		for (int c = 0; c < cols; c++) {
+			pWind->DrawCircle(c * config.gridSpacing, r * config.gridSpacing + uprLeft.y, 1);
+		}
+	}
+	// Draw ALL shapes
+	for (int i = 0; i < shapeCount; i++) {
+		delete shapeList[i];
+			 // Draw each shape
+		
+	}
+
+	if (activeShape) {
+		activeShape->draw();
 	}
 }
 
@@ -111,4 +158,93 @@ void grid::drawAllButActiveShape() const
 		if (activeShape) {
 			activeShape->draw();
 		}
+	}
+	shape* grid::DrawRandomShape()
+	{
+		window* pw = pGame->getWind();
+		srand(time(0));
+		int ct = 0;
+		while (ct < pGame->getCurrentGameLevel())
+		{
+			int RndShape = rand() % (6);
+
+			if (RndShape == 0)
+			{
+				int RndSize = rand() % 10;
+				int RndRotationNo = rand() % 4;
+				shape* psh = new Sign(pGame, { 500,300 });
+				psh->resize(1.2);
+				for (int i = 0; i < RndRotationNo; i++)
+				{
+					psh->rotate();
+				}
+				addShape(psh);
+			}
+			else if (RndShape == 1)
+			{
+				int RndSize = rand() % 10;
+				int RndRotationNo = rand() % 4;
+				shape* ps = new Car(pGame, { 600,300 });
+				ps->resize(1.3);
+				for (int i = 0; i < RndRotationNo; i++)
+				{
+					ps->rotate();
+				}
+				addShape(ps);
+			}
+			else if (RndShape == 2)
+			{
+
+				int RndSize = rand() % 10;
+				int RndRotationNo = rand() % 4;
+				shape* p = new fanoos(pGame, { 700,300 });
+				p->resize(1.5);
+				for (int i = 0; i < RndRotationNo; i++)
+				{
+					p->rotate();
+				}
+				addShape(p);
+			}
+			else if (RndShape == 3)
+			{
+
+				int RndSize = rand() % 10;
+				int RndRotationNo = rand() % 4;
+				shape* psh = new Tree(pGame, { 300,300 });
+				psh->resize(1.7);
+				for (int i = 0; i < RndRotationNo; i++)
+				{
+					psh->rotate();
+				}
+				addShape(psh);
+
+
+			}
+			else if (RndShape == 4)
+			{
+				int RndSize = rand() % 10;
+				int RndRotationNo = rand() % 4;
+				shape* ps = new House(pGame, { 600,300 });
+				ps->resize(1.3);
+				for (int i = 0; i < RndRotationNo; i++)
+				{
+					ps->rotate();
+				}
+				addShape(ps);
+			}
+			else if (RndShape == 5)
+			{
+				int RndSize = rand() % 10;
+				int RndRotationNo = rand() % 4;
+				shape* ps = new iceCream(pGame, { 600,300 });
+				ps->resize(1.3);
+				for (int i = 0; i < RndRotationNo; i++)
+				{
+					ps->rotate();
+				}
+				addShape(ps);
+			}
+			ct++;
+		}
+		return nullptr;
 	}

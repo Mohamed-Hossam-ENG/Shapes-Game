@@ -57,6 +57,7 @@ void game::createGrid()
 	int gridHeight = config.windHeight - config.toolBarHeight - config.statusBarHeight;
 	//create the grid
 	shapesGrid = new grid(gridUpperLeftPoint, config.windWidth, gridHeight, this);
+	shapesGrid->DrawRandomShape();
 }
 
 operation* game::createRequiredOperation(toolbarItem clickedItem)
@@ -107,6 +108,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		printMessage("You Rotated this Item");
 		break;
 	case ITM_Refresh:
+		
+		shapesGrid->drawAllButRandomShape();
+		shapesGrid->DrawRandomShape();
 		printMessage("You Refreshed the Game");
 		break;
 	case ITM_Icecream:
@@ -245,6 +249,7 @@ void game::run()
 
 				if(clickedItem != ITM_Delete)
 				shapesGrid->draw(); 
+				//shapesGrid->DrawRandomShape();
 			}
 		}
 	} while (clickedItem != ITM_EXIT);
