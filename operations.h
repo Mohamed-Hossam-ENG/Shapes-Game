@@ -112,4 +112,9 @@ public:
 	operDeleteRandomShapes(game* r_pGame);
 	virtual void Act();
 };
+class operRefresh :public operation {
+public:
+	operRefresh(game* r_pGame);
+	virtual void Act();
+};
 
