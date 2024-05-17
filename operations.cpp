@@ -52,6 +52,10 @@ operFlip::operFlip(game* r_pGame) : operation(r_pGame)
 operDelete::operDelete(game* r_pGame) : operation(r_pGame)
 {
 }
+operRefresh::operRefresh(game* r_pGame) : operation(r_pGame)
+{
+}
+
 
 
 
@@ -310,7 +314,13 @@ void operDelete::Act()
 
 }
 
-void operDeleteRandomShapes::Act()
+void operRefresh::Act()
 {
+	grid* shapesGrid = pGame->getGrid();
+	shapesGrid->drawAllButRandomShape();
+	shapesGrid->DrawRandomShape();
+	pGame->DecrementScore();
+	toolbar* tolbar = pGame->getToolBar();
+	tolbar->GameLevelScoreLives(this->pGame);
 
 }
