@@ -67,32 +67,43 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	{
 	case ITM_SIGN:
 		op = new operAddSign(this);
-		printMessage("You Clicked on Create A Sign");
+		 {
+			printMessage("You Clicked on Create A Sign");
+		}	
+			
 		break;
-	/*case ITM_Triangle:
-		op = new operAddTriangle(this);
-		printMessage("You Clicked on Create A Triangle");
-		break;
-	case ITM_circle:
-		op = new operAddcircle(this);
-		printMessage("You Clicked on Create A Circle");
-		break;
-	case ITM_Rectangle:
-		op = new operAddRectangle(this);
-		printMessage("You Clicked on Create A Rectangle");
-		break;*/
+	
 	case ITM_Save_and_Load:
+		op = new operSave(this);
 		printMessage("You Cliked on Save And Load");
 		break;
 	case ITM_Select_GAME_LEVEl:
-		printMessage("You Clicked on Select Game level");
+	{
+		printMessage("Please enter the game level:");
+		//string newlevel =getSrting(); // Encapsulate this line in a block
+		//if (!newlevel.empty()) {
+		//	int level1 = std::stoi(newlevel); // Convert input to an integer.
+		//	setlevel(level1); // Change to the requested game level.
+		//	printMessage("Game level selected."+newlevel);
+		//}
+		//
+		//
+		 }
+		break;
+				
 			break;
 	case ITM_Decrease:
 		op = new operDecResize(this);
-		printMessage("You Decreased the Size");
+		
+			printMessage("you decreased size");
+		
 		break;
 	case ITM_Delete:
 		op = new operDelete(this);
+		/*if (stepsRemaining > 0) {
+			
+		}
+		else*/
 		printMessage("You Deleted this Item");
 			break;
 	case ITM_Hint:
@@ -100,18 +111,31 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		break;
 	case ITM_Increase:
 		op = new operIncResize(this);
+		/*if (stepsRemaining > 0) {
+			
+		}
+		else*/
 		printMessage("You Increased this items size");
 		break;
 	case ITM_Rotate:
 	
 		op = new operRotate(this);
-		printMessage("You Rotated this Item");
-		break;
-	case ITM_Refresh:
+		performOperation();
+		/*if (stepsRemaining > 0) {
+			
+		}
+		else*/
+		//printMessage("You Rotated this Item");
 		
-		shapesGrid->drawAllButRandomShape();
-		shapesGrid->DrawRandomShape();
-		printMessage("You Refreshed the Game");
+		break;
+	case ITM_Refresh:		
+		
+		op = new operRefresh(this);
+		/*if (stepsRemaining>0) {
+			printMessage("You Refreshed The Random shapes");
+		}
+		else*/
+		printMessage("You Refreshed The Random shapes");
 		break;
 	case ITM_Icecream:
 		printMessage("You clicked on Draw Ice Cream");
@@ -136,7 +160,11 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		break;
 	case ITM_FLIP:
 		op = new operFlip(this);
+		/*if (stepsRemaining >0) {
 			printMessage("You clicked on Flip");
+		}
+		else*/
+		printMessage("You clicked on Flip");
 		break;
 	}
 	
@@ -195,6 +223,66 @@ grid* game::getGrid() const
 	return shapesGrid;
 }
 
+toolbar* game::getToolBar() const
+{
+	return gameToolbar;
+}
+
+int game::getstep1()
+{
+	return step1;
+}
+bool game::performOperation() {
+	bool x = true;
+	while (x==true) {
+		Chargedsteps =6 - step1;
+		string level = std::to_string(getCurrentGameLevel());
+		if (Chargedsteps ==0) {
+			printMessage(" With 100 chargteps you reached to level :" + level+"   Level");
+			break;
+			return false;
+		}
+		else {
+			return true ;
+		}
+	}
+}
+int game::getbounesscore()
+{
+	int bounesScore = 20 +500 / step1;
+	Current_score += bounesScore;
+
+	return Current_score;
+}
+//int game::getbounes()
+//{
+//	int minstep = 13 + Current_gameLevel;
+//	//maybe 
+//	if (stepsRemaining>minstep) {
+//
+//		Current_score += 5;
+//
+//	}
+//	return ;
+//}
+
+int game::getRemainingsteps()
+{
+	
+	if (Chargedsteps < 0) {
+		Chargedsteps = 0;
+	}
+	return 0;
+}
+
+void game::getchargedSteps()
+{
+	if (Chargedsteps == 0) {
+		printMessage("you reached to level" + getCurrentGameLevel()+ getCurrentScore());
+}
+	
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -204,19 +292,31 @@ void game::handleKeyPress(char K) {
 
 	 int Step = 50; 
 	shape* activeShape = shapesGrid->getActiveShape(); 
-	
+
 	switch (K) {
 	case 'w': //up
 		activeShape->move(0, -Step);
+		step1++;
+		
+		if (stepsRemaining <= 0) {
+			printMessage("Not enough steps remaining to perform this operation!");
+		}
+		gameToolbar->GameLevelScoreLives(this);
 		break;
 	case 's'://down 
 		activeShape->move(0,Step);
+		step1++;
+		gameToolbar->GameLevelScoreLives(this);
 		break;
 	case 'a': //right 
 		activeShape->move(-Step, 0);
+		step1++;
+		gameToolbar->GameLevelScoreLives(this);
 		break;
 	case 'd'://left 
 		activeShape->move(Step, 0);
+		step1++;
+		gameToolbar->GameLevelScoreLives(this);
 		break;
 	}
 
@@ -230,11 +330,11 @@ void game::run()
 	toolbarItem clickedItem = ITM_CNT;
 
 	
-	pWind->ChangeTitle("- - - SHAPE HUNT (CIE 101 / CIE202 - project) - - -");
+	pWind->ChangeTitle("- - - SHAPE HUNT (CIE 101 project)/\(SEC2_T05) - - -");
 
 	char K;
 	do {
-		
+		performOperation();
 		while (pWind->GetKeyPress(K)) { 
 			handleKeyPress(K); 
 		}
@@ -247,7 +347,7 @@ void game::run()
 				if (op) op->Act();
 
 
-				if(clickedItem != ITM_Delete)
+				if(clickedItem)
 				shapesGrid->draw(); 
 				//shapesGrid->DrawRandomShape();
 			}
@@ -255,6 +355,41 @@ void game::run()
 	} while (clickedItem != ITM_EXIT);
 }
 		
+void game::incrementScore()
+{
+	Current_score++;
+}
+
+void game::incrementLevel()
+{
+	Current_score++;
+}
+
+void game::incrementLives()
+{
+	Lives++;
+}
+
+void game::incrementStep1()
+{
+	step1++;
+}
+
+void game::DecrementLives()
+{
+	Lives--;
+}
+
+void game::DecrementLevel()
+{
+	Current_gameLevel--;
+}
+
+void game::DecrementScore()
+{
+	Current_score--;
+}
+
 int game::getCurrentGameLevel() const
 {
 	return Current_gameLevel;
